@@ -1,4 +1,4 @@
-package service;
+package com.calculo.cep.service;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import model.Endereco;
+import com.calculo.cep.model.Endereco;
 
 @Service
 public class ViaCepService {

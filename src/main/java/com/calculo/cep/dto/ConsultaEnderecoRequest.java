@@ -1,4 +1,4 @@
-package dto;
+package com.calculo.cep.dto;
 
 import javax.validation.constraints.NotBlank;
 

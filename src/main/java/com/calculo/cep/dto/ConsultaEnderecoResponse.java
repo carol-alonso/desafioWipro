@@ -1,8 +1,8 @@
-package dto;
+package com.calculo.cep.dto;
 
 import java.math.BigDecimal;
 
-import model.Endereco;
+import com.calculo.cep.model.Endereco;
 public class ConsultaEnderecoResponse {
 
     private String cep;

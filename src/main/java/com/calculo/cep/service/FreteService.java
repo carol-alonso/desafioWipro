@@ -1,4 +1,4 @@
-package service;
+package com.calculo.cep.service;
 
 import java.util.HashMap;
 import java.util.Map;

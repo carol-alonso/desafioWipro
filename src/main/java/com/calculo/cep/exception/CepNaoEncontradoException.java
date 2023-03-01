@@ -1,4 +1,4 @@
-package exception;
+package com.calculo.cep.exception;
 public class CepNaoEncontradoException extends RuntimeException {
     
     /**

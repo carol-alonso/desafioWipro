@@ -1,4 +1,4 @@
-package controller;
+package com.calculo.cep.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dto.ConsultaEnderecoRequest;
-import dto.ConsultaEnderecoResponse;
-import model.Endereco;
-import service.ViaCepService;
+import com.calculo.cep.dto.ConsultaEnderecoRequest;
+import com.calculo.cep.dto.ConsultaEnderecoResponse;
+import com.calculo.cep.model.Endereco;
+import com.calculo.cep.service.ViaCepService;
 
 @RestController
 @RequestMapping("/v1/consulta-endereco/cep")

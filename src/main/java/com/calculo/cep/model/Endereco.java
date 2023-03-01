@@ -1,4 +1,4 @@
-package model;
+package com.calculo.cep.model;
 public class Endereco {
 
 	   private String cep;
