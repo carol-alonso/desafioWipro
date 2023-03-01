@@ -1,30 +1,39 @@
 package service;
 
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import client.ViaCepClient;
-import client.ViaCepResponse;
-import exception.ViaCepException;
-import feign.FeignException;
+import exception.CepNaoEncontradoException;
+import model.Endereco;
 
 @Service
 public class ViaCepService {
-
-    private final ViaCepClient viaCepClient;
-
-    public ViaCepService(ViaCepClient viaCepClient) {
-        this.viaCepClient = viaCepClient;
+    
+    private static final String URL_VIACEP = "https://viacep.com.br/ws/%s/json/";
+    
+    private final RestTemplate restTemplate;
+    
+    public ViaCepService(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
     }
+    
+        public Endereco buscarEndereco(String cep) throws CepNaoEncontradoException {
+            ResponseEntity<Endereco> response = restTemplate.getForEntity(URL_VIACEP + cep + "/json", Endereco.class);
 
-    public ViaCepResponse consultaCep(String cep) throws ViaCepException {
-        try {
-            ViaCepResponse viaCepResponse = viaCepClient.consultaCep(cep);
-            if (viaCepResponse == null || viaCepResponse.getCep() == null) {
-                throw new ViaCepException("CEP não encontrado");
+            if (response.getBody() == null) {
+                throw new CepNaoEncontradoException("CEP não encontrado");
             }
-            return viaCepResponse;
-        } catch (FeignException e) {
-            throw new ViaCepException("Erro ao consultar CEP: " + e.getMessage());
+
+            Endereco endereco = response.getBody();
+
+            if (endereco.getCep() == null) {
+                throw new CepNaoEncontradoException("CEP não encontrado");
+            }
+
+            return endereco;
         }
+
     }
-}
+
