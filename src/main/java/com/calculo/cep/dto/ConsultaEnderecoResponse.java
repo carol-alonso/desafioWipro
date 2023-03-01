@@ -5,24 +5,24 @@ import java.math.BigDecimal;
 import com.calculo.cep.model.Endereco;
 public class ConsultaEnderecoResponse {
 
-    private String cep;
-    private String rua;
-    private String complemento;
-    private String bairro;
-    private String cidade;
-    private String estado;
-    private Double frete;
+	   private String cep;
+	    private String logradouro;
+	    private String complemento;
+	    private String bairro;
+	    private String localidade;
+	    private String uf;
+	    private Double frete;
 
     public ConsultaEnderecoResponse() {
     }
 
     public ConsultaEnderecoResponse(Endereco endereco, Double frete) {
         this.cep = endereco.getCep();
-        this.rua = endereco.getRua();
+        this.logradouro = endereco.getLogradouro();
         this.complemento = endereco.getComplemento();
         this.bairro = endereco.getBairro();
-        this.cidade = endereco.getCidade();
-        this.estado = endereco.getEstado();
+        this.localidade = endereco.getLocalidade();
+        this.uf = endereco.getUf();
         this.frete = frete;
     }
 	public String getCep() {
@@ -34,11 +34,11 @@ public class ConsultaEnderecoResponse {
 	}
 
 	public String getRua() {
-		return rua;
+		return logradouro;
 	}
 
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
 	public String getComplemento() {
@@ -57,20 +57,20 @@ public class ConsultaEnderecoResponse {
 		this.bairro = bairro;
 	}
 
-	public String getCidade() {
-		return cidade;
+	public String getLocalidade() {
+		return localidade;
 	}
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getUf() {
+		return uf;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 
 	public Double getFrete() {

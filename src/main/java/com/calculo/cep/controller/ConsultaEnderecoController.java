@@ -30,7 +30,7 @@ public class ConsultaEnderecoController {
         if (endereco == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        if (endereco.getEstado() == null) {
+        if (endereco.getUf() == null) {
         	ConsultaEnderecoResponse response = new ConsultaEnderecoResponse(endereco, null);
             return ResponseEntity.ok(response);
         }
@@ -42,7 +42,7 @@ public class ConsultaEnderecoController {
     }
 
     private Double calculaFrete(Endereco endereco) {
-        String uf = endereco.getEstado();
+        String uf = endereco.getUf();
         switch (uf) {
             case "SP":
             case "RJ":
