@@ -81,8 +81,4 @@ public class ConsultaEnderecoResponse {
 		this.frete = frete;
 	}
 
-	public void setFrete(BigDecimal frete) {
-        this.frete = frete.doubleValue();
-    }
-
 }

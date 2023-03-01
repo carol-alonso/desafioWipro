@@ -30,6 +30,10 @@ public class ConsultaEnderecoController {
         if (endereco == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+        if (endereco.getEstado() == null) {
+        	ConsultaEnderecoResponse response = new ConsultaEnderecoResponse(endereco, null);
+            return ResponseEntity.ok(response);
+        }
 
         Double frete = calculaFrete(endereco);
 
