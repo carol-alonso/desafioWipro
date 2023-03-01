@@ -8,4 +8,6 @@ import model.Endereco;
 @Repository
 public interface EnderecoRepository extends JpaRepository<Endereco, String> {
 
+	Endereco findByCep(String cep);
+
 }

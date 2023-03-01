@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import client.ViaCepClient;
 import client.ViaCepResponse;
 import exception.ViaCepException;
+import feign.FeignException;
 
 @Service
 public class ViaCepService {
