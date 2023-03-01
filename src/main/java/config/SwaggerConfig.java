@@ -1,58 +1,38 @@
 package config;
 
-import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import io.swagger.v3.oas.models.ExternalDocumentation;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Contact;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.responses.ApiResponse;
-import io.swagger.v3.oas.models.responses.ApiResponses;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
+@EnableSwagger2
 public class SwaggerConfig {
 
-	@Bean
-	public OpenAPI springBuscarCEPOpenAPI() {
-		return new OpenAPI()
-				.info(new Info()
-					.title("Buscar CEP")
-					.description("Prova prática")
-					.version("v0.0.1")
-				.contact(new Contact()
-					.name("Ana Caroline Lacerda Alonso")
-					.url("https://github.com/carol-alonso")
-					.email("lacerdacarol01@gmail.com")))
-				.externalDocs(new ExternalDocumentation()
-					.description("Github")
-					.url("https://github.com/carol-alonso/"));
-	}
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.example.controller"))
+                .paths(PathSelectors.ant("/v1/consulta-endereco"))
+                .build()
+                .apiInfo(apiInfo());
+    }
 
-	@Bean
-	public OpenApiCustomiser customerGlobalHeaderOpenApiCustomiser() {
-
-		return openApi -> {
-			openApi.getPaths().values().forEach(pathItem -> pathItem.readOperations().forEach(operation -> {
-
-				ApiResponses apiResponses = operation.getResponses();
-
-				apiResponses.addApiResponse("200", createApiResponse("Sucesso!"));
-				apiResponses.addApiResponse("201", createApiResponse("Objeto Persistido!"));
-				apiResponses.addApiResponse("204", createApiResponse("Objeto Excluído!"));
-				apiResponses.addApiResponse("400", createApiResponse("Erro na Requisição!"));
-				apiResponses.addApiResponse("401", createApiResponse("Acesso Não Autorizado!"));
-				apiResponses.addApiResponse("404", createApiResponse("Objeto Não Encontrado!"));
-				apiResponses.addApiResponse("500", createApiResponse("Erro na Aplicação!"));
-
-			}));
-		};
-	}
-
-	private ApiResponse createApiResponse(String message) {
-
-		return new ApiResponse().description(message);
-
-	}
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("API de Consulta de Endereço")
+                .description("API para consulta de endereço e cálculo de frete")
+                .version("1.0")
+                .build();
+    }
 }
+
+
+

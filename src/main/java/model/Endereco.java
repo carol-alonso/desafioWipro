@@ -1,13 +1,13 @@
 package model;
 public class Endereco {
 
-    private String cep;
-    private String rua;
-    private String complemento;
-    private String bairro;
-    private String cidade;
-    private String uf;
-    private double frete;
+	   private String cep;
+	    private String rua;
+	    private String complemento;
+	    private String bairro;
+	    private String cidade;
+	    private String estado;
+	    private Double frete;
 
     //getters e setters
 
@@ -51,19 +51,22 @@ public class Endereco {
         this.cidade = cidade;
     }
 
-    public String getUf() {
-        return uf;
-    }
+	public String getEstado() {
+		return estado;
+	}
 
-    public void setUf(String uf) {
-        this.uf = uf;
-    }
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 
-    public double getFrete() {
-        return frete;
-    }
+	public Double getFrete() {
+		return frete;
+	}
 
-    public void setFrete(double frete) {
-        this.frete = frete;
-    }
+	public void setFrete(Double frete) {
+		this.frete = frete;
+	}
+
+
+  
 }

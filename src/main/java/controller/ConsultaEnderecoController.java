@@ -1,39 +1,80 @@
 package controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import client.ConsultaEnderecoRequest;
-import client.ConsultaEnderecoResponse;
+import dto.ConsultaEnderecoRequest;
+import dto.ConsultaEnderecoResponse;
 import model.Endereco;
-import service.FreteService;
 import service.ViaCepService;
 
 @RestController
-@RequestMapping("/v1/consulta-endereco")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/v1/consulta-endereco/cep")
 public class ConsultaEnderecoController {
 
-    private final ViaCepService viaCepService;
-    private final FreteService freteService;
+    private ViaCepService viaCepService;
 
-    public ConsultaEnderecoController(ViaCepService viaCepService, FreteService freteService) {
+    public ConsultaEnderecoController(ViaCepService viaCepService) {
         this.viaCepService = viaCepService;
-        this.freteService = freteService;
     }
 
-    @PostMapping("/cep")
+    @PostMapping
     public ResponseEntity<ConsultaEnderecoResponse> consultaEndereco(@RequestBody ConsultaEnderecoRequest request) {
-        Endereco endereco = viaCepService.buscarEndereco(request.getCep());
+        String cep = request.getCep().replace("-", "");
+
+        Endereco endereco = viaCepService.consultarEnderecoPorCep(cep);
         if (endereco == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        endereco.setFrete(freteService.calcularFrete(endereco.getUf()));
-        ConsultaEnderecoResponse response = new ConsultaEnderecoResponse();
+
+        Double frete = calculaFrete(endereco);
+
+        ConsultaEnderecoResponse response = new ConsultaEnderecoResponse(endereco, frete);
         return ResponseEntity.ok(response);
     }
+
+    private Double calculaFrete(Endereco endereco) {
+        String uf = endereco.getEstado();
+        switch (uf) {
+            case "SP":
+            case "RJ":
+            case "MG":
+            case "ES":
+                return 7.85;
+            case "MT":
+            case "MS":
+            case "GO":
+            case "DF":
+                return 12.50;
+            case "BA":
+            case "SE":
+            case "AL":
+            case "PE":
+            case "PB":
+            case "RN":
+            case "CE":
+            case "PI":
+            case "MA":
+                return 15.98;
+            case "PR":
+            case "SC":
+            case "RS":
+                return 17.30;
+            case "AM":
+            case "RO":
+            case "AC":
+            case "RR":
+            case "AP":
+            case "PA":
+            case "TO":
+                return 20.83;
+            default:
+                return 0.0;
+        }
+    }
+
 }
