@@ -89,5 +89,10 @@ public class Endereco {
 		this.estado = estado;
 	}
 
+	public void setFrete(Double calcularFrete) {
+		this.setFrete(calcularFrete);
+		
+	}
+
     
 }
