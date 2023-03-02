@@ -9,3 +9,9 @@ um determinado CEP.
 - API REST Template
 - Documentação Swagger
 - Testes unitários JUnit5
+
+## Teste da aplicação via Postman
+
+URL: http://localhost:8080/v1/consulta-endereco/cep
+
+JSON: { "cep": "01032-010" }
